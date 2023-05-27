@@ -16,7 +16,7 @@ You can try out the live demo of the shopping list application [here](https://ex
 ## Screenshots
 
 ![Screenshot 1](images/img1.PNG)
-![Screenshot 2](images/img2.png)
+![Screenshot 2](images/img2.PNG)
 
 ## Technologies Used
 
