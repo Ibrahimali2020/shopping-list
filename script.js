@@ -16,38 +16,49 @@ function hiddenClass() {
 
 
 // Add items to the list
-function addItems(e) {
+function onAddItemSubmit(e) {
   let input = document.getElementById('item-input').value;
   e.preventDefault();
   if (input === '' ) {
     alert('Please fill in all fields')
     return;
-  } else {
+  } 
+
+  // Add items to DOM
     const text = document.createTextNode(input)
     const ul = document.querySelector('ul');
     const li = document.createElement('li');
-  
     const btnRemove = document.createElement('button');
     btnRemove.className = 'remove-item btn-link text-red';
     const i = document.createElement('i');
     i.className = 'fa-solid fa-xmark';
-  
     li.appendChild(text)
     btnRemove.appendChild(i);
     li.appendChild(btnRemove);
     ul.appendChild(li);
+    // Add items to local storage
+    let itemsFromStorage;
+    if (localStorage.getItem('items') === null) {
+      itemsFromStorage = [];
+    } else {
+      itemsFromStorage = JSON.parse(localStorage.getItem('items'));
+    }
+    itemsFromStorage.push(input)
+    localStorage.setItem('items', JSON.stringify(itemsFromStorage))
     // alert(`${input} is added successfully`)
     document.getElementById('item-input').value = '';
     hiddenClass()
-  }
+  
 }
-btnSubmit.addEventListener('click', addItems);
+btnSubmit.addEventListener('click', onAddItemSubmit);
 
 
 // Remove items form the list
 ul.addEventListener('click', e => {
   if (e.target.tagName === 'I') {
+    if (confirm('Are you sure?')) {
     e.target.parentElement.parentElement.remove();   
+    }
     hiddenClass()
   }
 })
@@ -62,7 +73,7 @@ btnClearAll.addEventListener('click', onClear)
 
 
 
-
+// filter items
 const filter = document.getElementById('filter');
 filter.addEventListener('input', (e) => {
   const text = e.target.value.toLowerCase();
@@ -79,7 +90,4 @@ filter.addEventListener('input', (e) => {
 }
 )
 
-// filter.addEventListener('blur', () => {
-//   document.getElementById('filter').value = '';
-// })
 
