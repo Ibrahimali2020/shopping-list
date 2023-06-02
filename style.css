@@ -128,3 +128,7 @@ header h1 {
 .hidden {
   display: none;
 }
+
+.edit-mode {
+  color: gray;
+}
