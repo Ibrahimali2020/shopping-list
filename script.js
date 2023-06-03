@@ -39,15 +39,18 @@ function onAddItemSubmit(e) {
   // check for edit mode
   if (isEditMode) {
     const itemToEdit = document.querySelector('.edit-mode')
-
     removeItemsFromStorage(itemToEdit.textContent)
     removeItemFromDom(itemToEdit)
     itemToEdit.classList.remove('edit-mode')
     btnSubmit.style.backgroundColor = '#333';
     btnSubmit.innerHTML ='<i class="fa-solid fa-plus"></i> Add Item'
     isEditMode = false
+  } else {
+    if (checkIfItemExists(input)) {
+      alert('Item Already Exists')
+      return;
+    }
   }
-
   // Add items to DOM
   addItemsToDom(input)
     // Add items to local storage
@@ -55,6 +58,12 @@ function onAddItemSubmit(e) {
     // alert(`${input} is added successfully`)
     document.getElementById('item-input').value = '';
     hiddenClass()
+}
+
+
+function checkIfItemExists(item) {
+  const itemsFromStorage = getItemsFromStorage();
+  return itemsFromStorage.includes(item);
 }
 
 
